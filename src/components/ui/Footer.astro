@@ -1,0 +1,153 @@
+---
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Instagram,
+  Facebook,
+  Linkedin,
+  Clock,
+} from "lucide-astro";
+
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { name: "Proyectos", href: "/proyectos" },
+  { name: "Servicios", href: "/servicios" },
+  { name: "Proceso", href: "/proceso" },
+  { name: "Equipo", href: "/equipo" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contacto", href: "/contacto" },
+];
+
+const socials = [
+  { label: "Instagram", href: "https://instagram.com", icon: Instagram },
+  { label: "Facebook", href: "https://facebook.com", icon: Facebook },
+  { label: "LinkedIn", href: "https://linkedin.com", icon: Linkedin },
+];
+---
+
+<footer class="mt-auto border-t border-quaternary/60 bg-dark text-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <!-- Logotipo y propósito -->
+      <div class="md:col-span-5 space-y-6">
+        <a href="/" class="inline-block group">
+          <div id="logo-arquitecto-mx" class="flex flex-col">
+            <h2
+              class="font-black text-2xl text-light relative tracking-tight inline-block w-fit"
+            >
+              Arquitectos <span
+                class="absolute -bottom-2.5 -right-6 w-6 h-6 flex items-center justify-center text-[10px] text-dark font-extrabold bg-tertiary p-1 rounded-full shadow-md shadow-tertiary/30 group-hover:scale-110 transition-transform"
+                >MX</span
+              >
+            </h2>
+            <div
+              class="w-32 h-0.5 bg-tertiary my-1 group-hover:w-full transition-all duration-300"
+            >
+            </div>
+            <p
+              class="text-[11px] font-medium text-light/80 uppercase tracking-widest"
+            >
+              Innovación y Diseño
+            </p>
+          </div>
+        </a>
+        <p class="max-w-sm text-sm text-light/60 leading-relaxed">
+          Arquitectura residencial, comercial y patrimonial en Oaxaca y todo
+          México.
+        </p>
+        <div class="flex items-center gap-2">
+          {
+            socials.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex h-10 w-10 items-center justify-center border border-quaternary text-light/70 transition-colors hover:border-tertiary hover:text-tertiary"
+                aria-label={`${s.label} de Arquitectos MX`}
+              >
+                <s.icon class="w-4 h-4" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Navegación -->
+      <div class="md:col-span-3 space-y-5">
+        <h3
+          class="font-mono text-[11px] uppercase tracking-[0.25em] text-quinary"
+        >
+          Navegación
+        </h3>
+        <ul class="space-y-3 text-sm">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-light/75 transition-colors hover:text-tertiary"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div class="md:col-span-4 space-y-5">
+        <h3
+          class="font-mono text-[11px] uppercase tracking-[0.25em] text-quinary"
+        >
+          Estudio
+        </h3>
+        <ul class="space-y-4 text-sm text-light/75">
+          <li class="flex items-start gap-3">
+            <MapPin class="w-4 h-4 text-tertiary shrink-0 mt-0.5" />
+            <span>Oaxaca de Juárez, Oaxaca, México</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <Phone class="w-4 h-4 text-tertiary shrink-0" />
+            <a
+              href="tel:+525555555555"
+              class="transition-colors hover:text-tertiary">+52 5555 5555 55</a
+            >
+          </li>
+          <li class="flex items-center gap-3">
+            <Mail class="w-4 h-4 text-tertiary shrink-0" />
+            <a
+              href="mailto:arquitectosMx@arquitectos.com"
+              class="break-all transition-colors hover:text-tertiary"
+            >
+              arquitectosMx@arquitectos.com
+            </a>
+          </li>
+          <li class="flex items-start gap-3">
+            <Clock class="w-4 h-4 text-tertiary shrink-0 mt-0.5" />
+            <span>Lun – Vie 9:00 – 18:00<br />Sáb 10:00 – 14:00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Barra inferior -->
+    <div
+      class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-quaternary/60 pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-light/45 sm:flex-row"
+    >
+      <p>© {currentYear} Arquitectos MX</p>
+      <div class="flex items-center gap-6">
+        <a
+          href="/politicas-privacidad"
+          class="transition-colors hover:text-tertiary">Privacidad</a
+        >
+        <a
+          href="/politicas-privacidad#terminos"
+          class="transition-colors hover:text-tertiary">Términos</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

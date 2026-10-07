@@ -1,0 +1,86 @@
+---
+interface Props {
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  breadcrumbs?: { label: string; href?: string }[];
+  bgImage?: string;
+}
+
+const {
+  badge = "Arquitectos MX",
+  title,
+  subtitle,
+  breadcrumbs = [{ label: "Inicio", href: "/" }],
+  bgImage,
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-quaternary/60 bg-secondary">
+  <!-- cuadricula desvanecida -->
+  <div
+    class="absolute inset-0 bg-blueprint [mask:linear-gradient(to_bottom,black,transparent_85%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto grid max-w-7xl items-end gap-12 px-4 pb-16 pt-14 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-12 lg:px-8"
+  >
+    <div class="lg:col-span-7">
+      <!-- breadcrumb -->
+      <nav
+        aria-label="breadcrumb"
+        class="mb-10 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-light/50"
+      >
+        {
+          breadcrumbs.map((crumb) => (
+            <>
+              {crumb.href ? (
+                <a href={crumb.href} class="transition-colors hover:text-tertiary">
+                  {crumb.label}
+                </a>
+              ) : (
+                <span>{crumb.label}</span>
+              )}
+              <span class="text-quaternary">/</span>
+            </>
+          ))
+        }
+        <span class="text-tertiary">{title}</span>
+      </nav>
+
+      <p class="mb-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-quinary">
+        <span class="h-px w-10 bg-tertiary"></span>
+        {badge}
+      </p>
+
+      <h1 class="font-display text-4xl font-light leading-[1.05] tracking-tight text-light sm:text-5xl lg:text-7xl">
+        {title}
+      </h1>
+
+      {
+        subtitle && (
+          <p class="mt-8 max-w-xl border-l border-tertiary/60 pl-5 text-sm leading-relaxed text-light/70 sm:text-base">
+            {subtitle}
+          </p>
+        )
+      }
+    </div>
+
+    {
+      bgImage && (
+        <figure class="relative hidden lg:col-span-5 lg:block">
+          <div class="relative aspect-5/4 overflow-hidden border border-quaternary bg-primary">
+            <img src={bgImage} alt={title} class="h-full w-full object-cover grayscale-30" />
+          </div>
+          <!-- Marcas de esquina -->
+          <span class="absolute -left-2 -top-2 h-4 w-4 border-l border-t border-tertiary" aria-hidden="true" />
+          <span class="absolute -right-2 -top-2 h-4 w-4 border-r border-t border-tertiary" aria-hidden="true" />
+          <span class="absolute -bottom-2 -left-2 h-4 w-4 border-b border-l border-tertiary" aria-hidden="true" />
+          <span class="absolute -bottom-2 -right-2 h-4 w-4 border-b border-r border-tertiary" aria-hidden="true" />
+        </figure>
+      )
+    }
+  </div>
+</section>

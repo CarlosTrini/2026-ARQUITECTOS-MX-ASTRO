@@ -1,0 +1,96 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import CtaBand from "../components/ui/CtaBand.astro";
+import { ArrowRight } from "lucide-astro";
+import { servicesPage as services } from "../content/dataStatic/data.ts";
+---
+
+<MainLayout
+  title="Servicios Arquitectónicos Integrales | Arquitectos MX"
+  description="Conoce lo que hacemos en Arquitectos MX: Diseño residencial, arquitectura comercial, dirección de obra, interiorismo, modelado BIM y trámites de licencias."
+  keywords={[
+    "servicios de arquitectura",
+    "diseño de casas oaxaca",
+    "supervision de obra profesional",
+    "tramites inah oaxaca",
+    "renders 3d arquitectura",
+    "licencias de construccion",
+  ]}
+>
+  <PageHeader
+    badge="Servicios profesionales"
+    title="Lo que hacemos"
+    subtitle="Acompañamiento arquitectónico integral con enfoque en diseño de alta gama, eficiencia presupuestal y rigor normativo."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+    bgImage="https://picsum.photos/seed/services-hero-blueprint/1200/960"
+  />
+
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    {
+      services.map((service, index) => {
+        const reversed = index % 2 === 1;
+        return (
+          <article
+            id={service.id}
+            class="grid scroll-mt-28 grid-cols-1 items-center gap-10 border-b border-quaternary/60 py-16 last:border-b-0 sm:py-20 lg:grid-cols-12 lg:gap-16"
+          >
+            <div
+              class={`relative lg:col-span-6 ${reversed ? "lg:order-2" : ""}`}
+            >
+              <div class="aspect-4/3 overflow-hidden border border-quaternary bg-primary">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  class="h-full w-full object-cover grayscale-50 transition-all duration-700 hover:scale-105 hover:grayscale-0"
+                  loading="lazy"
+                />
+              </div>
+              <span class="absolute -top-5 left-4 bg-secondary px-3 font-display text-6xl font-light leading-none text-tertiary sm:text-7xl">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+
+            <div
+              class={`space-y-7 lg:col-span-6 ${reversed ? "lg:order-1" : ""}`}
+            >
+              <div class="space-y-3">
+                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-quinary">
+                  {service.subtitle}
+                </p>
+                <h2 class="font-display text-3xl font-light leading-tight tracking-tight text-light sm:text-4xl">
+                  {service.title}
+                </h2>
+              </div>
+              <p class="text-sm leading-relaxed text-light/70 sm:text-base">
+                {service.description}
+              </p>
+
+              <ul class="space-y-3 border-t border-quaternary/60 pt-6">
+                {service.deliverables.map((item) => (
+                  <li class="flex items-start gap-4 text-sm text-light/80">
+                    <span
+                      class="mt-2.5 h-px w-5 shrink-0 bg-tertiary"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={`/contacto?servicio=${encodeURIComponent(service.title)}`}
+                class="group inline-flex items-center gap-3 border-b border-tertiary pb-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-tertiary transition-colors hover:text-light"
+              >
+                Cotizar este servicio
+                <ArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+
+  <CtaBand />
+</MainLayout>

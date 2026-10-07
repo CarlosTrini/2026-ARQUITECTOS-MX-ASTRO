@@ -1,0 +1,163 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import {
+    ArrowBigLeft,
+    ArrowDownLeft,
+    ArrowLeft,
+    ArrowRight,
+    CheckCircle,
+    Map,
+    Pin,
+} from "lucide-astro";
+import ImageGrid from "../../components/islands/ImageGrid";
+
+export const getStaticPaths = async () => {
+    const projects = await getCollection("projects");
+
+    return projects.map((project) => ({
+        params: { id: project.id },
+        props: { project },
+    }));
+};
+
+const { project } = Astro.props;
+
+const { data, rendered: { html } = { html: "" } } = project;
+---
+
+<MainLayout
+    title={data.title}
+    description={data.summary}
+    keywords={[
+        data.title,
+        data.category,
+        data.location,
+        "arquitectura",
+        "diseño",
+    ]}
+    ,
+    ogType="article"
+>
+    <article class="mx-auto max-w-[75%] lg:max-w-230 py-10">
+        <div class="flex gap-1 text-light text-xs mb-3">
+            <a
+                href="/"
+                class="text-light text-xs mb-3 transition-colors hover:text-tertiary border-b border-transparent hover:border-tertiary pb-1"
+                >Inicio &nbsp; &nbsp;
+            </a>
+            {">"}
+            <a
+                href="/proyectos"
+                class="text-light text-xs mb-3 transition-colors hover:text-tertiary border-b border-transparent hover:border-tertiary pb-1"
+                >&nbsp; Proyectos &nbsp; &nbsp;</a
+            >
+            {">"}
+            <span
+                class="text-tertiary text-xs mb-3 transition-colors hover:text-tertiary"
+                >&nbsp; {data.title}</span
+            >
+        </div>
+
+        <h1
+            class="font-display text-3xl leading-[1.05] tracking-wider text-light sm:text-5xl mb-9 text-center italic"
+        >
+            {data.title}
+        </h1>
+
+        <figure class="relative">
+            <ImageGrid
+                images={[...data.gallery, data.image]}
+                classContainer="flex-col flex-col-reverse md:max-h-[75vh]"
+                classThumbsContainer="flex-row justify-center flex-wrap gap-2"
+                classImageContainer="h-150 md:h-200"
+                client:load
+            />
+
+            <!-- Marcas de esquina -->
+            <span
+                class="absolute -left-3 -top-3 h-[10%] w-[10%] border-l border-t border-tertiary"
+                aria-hidden="true"></span>
+            <span
+                class="absolute -right-3 -top-3 h-[10%] w-[10%] border-r border-t border-tertiary"
+                aria-hidden="true"></span>
+            <span
+                class="absolute -bottom-3 -left-3 h-[10%] w-[10%] border-b border-l border-tertiary"
+                aria-hidden="true"></span>
+            <span
+                class="absolute -bottom-3 -right-3 h-[10%] w-[10%] border-b border-r border-tertiary"
+                aria-hidden="true"></span>
+        </figure>
+
+        <p
+            class="mt-10 p-4 lg:p-6 text-xs lg:text-[15px] font-bold bg-dark text-light italic"
+        >
+            {data.summary}
+        </p>
+
+        {/* Specs Bar */}
+        <section class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-dark/80 border border-tertiary/30 p-5 text-center">
+                <span class="text-xs text-light/60 block mb-2">Ubicación</span>
+                <p class="text-md font-bold text-light">
+                    {data.location}
+                </p>
+            </div>
+            <div class="bg-dark/80 border border-tertiary/30 p-5 text-center">
+                <span class="text-xs text-light/60 block mb-2">Superficie</span>
+                <p class="text-md font-bold text-tertiary">{data.area}</p>
+            </div>
+            <div class="bg-dark/80 border border-tertiary/30 p-5 text-center">
+                <span class="text-md text-light/60 block mb-2"
+                    >Año de Entrega</span
+                >
+                <p class="text-sm font-bold text-light">{data.year}</p>
+            </div>
+            <div class="bg-dark/80 border border-tertiary/30 p-5 text-center">
+                <span class="text-md text-light/60 block mb-2">Tipología</span>
+                <p class="text-sm font-bold text-light">{data.category}</p>
+            </div>
+        </section>
+
+        {/* Highlights */}
+        <section class="mt-10">
+            <!-- <h3
+                class="font-mono text-lg text-tertiary uppercase tracking-[0.2em] mb-6"
+            >
+                Datos Clave
+            </h3> -->
+            <ul class="space-y-4">
+                {
+                    data.highlights.map((highlight: string) => (
+                        <li class="text-light flex gap-2 text-md">
+                            <CheckCircle class="w-6 h-6 text-tertiary " />
+                            {highlight}
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+
+        <section set:html={html} class="mt-10 body-proyect" />
+
+        <section
+            class="mt-19 flex flex-col md:flex-row items-center justify-between"
+        >
+            <a
+                href="/proyectos"
+                class="text-dark flex items-center gap-2 mb-6 text-center bg-quinary w-fit mx-auto border border-quinary py-2 px-5 hover:scale-105 transition-all"
+            >
+                <ArrowLeft class="w-6 h-6 text-dark" />
+                Ver más proyectos
+            </a>
+            <a
+                href="/contacto"
+                class="animate-pulse text-dark flex items-center gap-2 mb-6 text-center bg-tertiary w-fit mx-auto border border-quinary py-2 px-5 hover:scale-105 transition-all"
+            >
+                Cotizar un proyecto
+                <ArrowRight class="w-6 h-6 text-dark" />
+            </a>
+        </section>
+    </article>
+</MainLayout>

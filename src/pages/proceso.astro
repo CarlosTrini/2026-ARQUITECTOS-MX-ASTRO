@@ -1,0 +1,134 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import CtaBand from "../components/ui/CtaBand.astro";
+
+const steps = [
+  {
+    number: "01",
+    title: "Entrevista y diagnóstico",
+    duration: "Semana 1 – 2",
+    summary:
+      "Escuchamos tus aspiraciones y presupuesto, y visitamos el terreno para evaluar topografía, vistas y clima.",
+    activities: [
+      "Briefing y cuestionario de necesidades",
+      "Visita y levantamiento preliminar del predio",
+      "Programa arquitectónico y presupuesto meta",
+    ],
+  },
+  {
+    number: "02",
+    title: "Anteproyecto y concepto 3D",
+    duration: "Semana 3 – 5",
+    summary:
+      "Transformamos las ideas en esquemas volumétricos, plantas y renders para que visualices tu proyecto antes de construirlo.",
+    activities: [
+      "Zonificación y esquemas de circulación",
+      "Modelado y visualizaciones 3D",
+      "Selección inicial de materiales y ajustes",
+    ],
+  },
+  {
+    number: "03",
+    title: "Proyecto ejecutivo y BIM",
+    duration: "Semana 6 – 9",
+    summary:
+      "Elaboramos el manual técnico de construcción con planos, cálculo estructural antisísmico e ingenierías.",
+    activities: [
+      "Planos arquitectónicos a escala constructiva",
+      "Memorias de cálculo y cimentación",
+      "Ingenierías hidrosanitarias, eléctricas y de gas",
+    ],
+  },
+  {
+    number: "04",
+    title: "Trámites y presupuesto base",
+    duration: "Semana 9 – 11",
+    summary:
+      "Gestionamos las licencias ante el municipio o el INAH y generamos el catálogo de conceptos por partidas.",
+    activities: [
+      "Expediente firmado por D.R.O. colegiado",
+      "Seguimiento de la licencia de construcción",
+      "Presupuesto por partidas y cronograma de obra",
+    ],
+  },
+  {
+    number: "05",
+    title: "Construcción y supervisión",
+    duration: "Mes 3 en adelante",
+    summary:
+      "Inicia la materialización en obra, con supervisión diaria de la calidad de colados, armados y acabados.",
+    activities: [
+      "Control de resistencia de concreto y aceros",
+      "Bitácora y reportes semanales con fotografías",
+      "Control de estimaciones y contratistas",
+    ],
+  },
+  {
+    number: "06",
+    title: "Entrega llave en mano",
+    duration: "Cierre de proyecto",
+    summary:
+      "Pruebas finales, limpieza y entrega de llaves con garantía por vicios ocultos.",
+    activities: [
+      "Checklist de acabados y pruebas de instalaciones",
+      "Manual de mantenimiento y planos As-Built",
+      "Póliza de garantía y acompañamiento post-entrega",
+    ],
+  },
+];
+---
+
+<MainLayout
+  title="Nuestro Proceso Arquitectónico de 6 Etapas | Arquitectos MX"
+  description="Conoce el método paso a paso de Arquitectos MX: Diagnóstico, Anteproyecto 3D, Proyecto Ejecutivo, Licencias, Construcción y Entrega Llave en Mano."
+  keywords={[
+    "proceso de diseño arquitectonico",
+    "etapas de un proyecto arquitectonico",
+    "proyecto ejecutivo oaxaca",
+    "supervision de construccion",
+    "entrega llave en mano"
+  ]}
+>
+  <PageHeader
+    badge="Metodología de trabajo"
+    title="Nuestro proceso"
+    subtitle="Una metodología transparente que transforma una visión en un espacio habitable, sin sorpresas de presupuesto ni retrasos injustificados."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+    bgImage="https://picsum.photos/seed/process-methodology-blueprint/1200/960"
+  />
+
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <ol>
+      {
+        steps.map((step) => (
+          <li class="grid grid-cols-1 gap-6 border-b border-quaternary/60 py-12 last:border-b-0 sm:py-16 md:grid-cols-12 md:gap-10">
+            <div class="md:col-span-3">
+              <div class="font-display text-7xl font-light leading-none text-tertiary sm:text-8xl">{step.number}</div>
+              <p class="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-quinary">{step.duration}</p>
+            </div>
+
+            <div class="space-y-5 md:col-span-5">
+              <h2 class="font-display text-2xl font-light leading-tight text-light sm:text-3xl">{step.title}</h2>
+              <p class="text-sm leading-relaxed text-light/70 sm:text-base">{step.summary}</p>
+            </div>
+
+            <ul class="space-y-3 border-t border-quaternary/60 pt-5 md:col-span-4 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+              {step.activities.map((act) => (
+                <li class="flex items-start gap-4 text-sm text-light/80">
+                  <span class="mt-2.5 h-px w-5 shrink-0 bg-tertiary" aria-hidden="true" />
+                  {act}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <CtaBand
+    title="¿Listo para comenzar la etapa 01?"
+    description="Empieza con una asesoría sin compromiso: analizamos las opciones técnicas y el potencial de tu terreno o inmueble."
+  />
+</MainLayout>

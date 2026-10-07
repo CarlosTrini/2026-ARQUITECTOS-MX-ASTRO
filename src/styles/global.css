@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "./tags.css";
+
+
+@theme {
+  --color-primary: #17211c;
+  /* verde cantera: superficies elevadas */
+  --color-secondary: #0d1310;
+  /* fondo base: verde casi negro */
+  --color-tertiary: #d9824f;
+  /* terracota: acento y llamadas a la acción */
+  --color-quaternary: #34443b;
+  /* musgo: líneas finas y divisores */
+  --color-quinary: #9db3a3;
+  /* salvia: etiquetas técnicas y detalles */
+  --color-dark: #080c0a;
+  --color-light: #eee9de;
+  /* cal: texto y papel */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #128c7e;
+
+  --font-sans: "Merriweather", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Merriweather", "Fraunces", Georgia, serif;
+  --font-mono: "Merriweather", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Retícula de plano arquitectónico (usa los tokens de la paleta) */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-quaternary) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-quaternary) 45%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+
+/* #logo-arquitecto-mx,
+#logo-arquitecto-mx * {
+  font-family: "Merriweather", serif;
+} */
+
+/* Estilos de los artículos */
+@layer components {
+
+  .article-body,
+  .body-proyect {
+    color: color-mix(in oklab, var(--color-light) 85%, transparent);
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+
+  .article-body>*+*,
+  .body-proyect>*+* {
+    margin-top: 1.25rem;
+  }
+
+  .article-body h2,
+  .body-proyect h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.15;
+    color: var(--color-light);
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-quaternary);
+  }
+
+  .article-body h3,
+  .body-proyect h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--color-light);
+    margin-top: 2rem;
+  }
+
+  .article-body strong,
+  .body-proyect strong {
+    color: var(--color-light);
+    font-weight: 700;
+  }
+
+  .article-body a,
+  .body-proyect a {
+    color: var(--color-tertiary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .article-body ul,
+  .body-proyect ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .article-body ul li,
+  .body-proyect ul li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-top: 0.6rem;
+  }
+
+  .article-body ul li::before,
+  .body-proyect ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.95em;
+    width: 0.9rem;
+    height: 1px;
+    background: var(--color-tertiary);
+  }
+
+  .article-body blockquote,
+  .body-proyect blockquote {
+    border-left: 2px solid var(--color-tertiary);
+    padding-left: 1.5rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--color-light);
+  }
+
+  .article-body img,
+  .body-proyect img {
+    width: 100%;
+    margin-block: 2rem;
+    border: 1px solid var(--color-quaternary);
+  }
+}

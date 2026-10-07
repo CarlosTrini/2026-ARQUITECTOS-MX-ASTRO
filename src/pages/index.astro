@@ -1,0 +1,295 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/ui/Button.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import CtaBand from "../components/ui/CtaBand.astro";
+import { getCollection } from "astro:content";
+import { stats, services, steps } from "../content/dataStatic/data";
+import { ArrowUpRight } from "lucide-astro";
+
+// Últimas publicaciones del blog
+const allPosts = await getCollection("posts");
+const sortedPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+// 3 proyectos
+const featuredProjects = await getCollection("projects").then((projects) =>
+  projects.slice(0, 3).map((p) => ({ ...p.data })),
+);
+---
+
+<MainLayout
+  title="Arquitectos MX | Despacho de Arquitectura, Diseño y Construcción"
+  description="Despacho de arquitectura contemporánea en Oaxaca de Juárez y todo México. Especialistas en diseño residencial, comercial, dirección de obra y confort bioclimático."
+  keywords={[
+    "despacho de arquitectos oaxaca",
+    "arquitectos mx",
+    "diseño arquitectonico residencial",
+    "construccion de casas",
+    "arquitectura oaxaca",
+    "supervision de obra",
+    "remodelacion e interiorismo",
+  ]}
+  ogType="website"
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-quaternary/60">
+    <!-- cuadricula -->
+    <div
+      class="absolute inset-0 bg-blueprint mask-[linear-gradient(to_bottom,black_30%,transparent)]"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:px-8"
+    >
+      <!-- Imagen en arco -->
+      <div class="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+        <div
+          class="relative aspect-3/4 overflow-hidden rounded-t-full border border-quaternary bg-primary"
+        >
+          <img
+            src="https://picsum.photos/seed/architecture/1000/1333"
+            alt="Arquitectura moderna y diseño vanguardista"
+            class="h-full w-full object-cover grayscale-30"
+            fetchpriority="high"
+          />
+        </div>
+        <p class="mt-2 text-[10px] uppercase tracking-[0.2em] text-light">
+          <span>Casa Cantera &amp; Luz</span>
+        </p>
+      </div>
+
+      <div class="space-y-10 lg:col-span-7">
+        <h1
+          class="font-display text-5xl font-light leading-[1.02] tracking-tight text-light sm:text-6xl lg:text-8xl"
+        >
+          Despacho de <em class="text-tertiary">arquitectura</em>
+        </h1>
+
+        <p
+          class="max-w-xl border-l border-tertiary/60 pl-5 text-base leading-relaxed text-light/75 sm:text-lg"
+        >
+          Espacios habitables que fusionan identidad material, eficiencia
+          bioclimática y rigor técnico: <span class="text-tertiary italic">
+            del primer boceto a la llave en mano.</span
+          >
+        </p>
+
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <Button href="/proyectos" size="lg" arrow}>Explorar portafolio</Button
+          >
+          <Button href="/contacto" size="lg" variant="outline"
+            >Solicitar cotización</Button
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIFRAS -->
+  <section class="border-b border-quaternary/60 bg-primary">
+    <div
+      class="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-quaternary/60 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8"
+    >
+      {
+        stats.map((stat) => (
+          <div class="flex items-baseline  gap-4 py-10 sm:flex-col sm:gap-2 sm:px-8 sm:first:pl-0">
+            <div class="font-display text-5xl font-light text-light sm:text-6xl mx-auto ">
+              {stat.value}
+            </div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.2em] text-quinary mx-auto">
+              {stat.label}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- OBRA DESTACADA -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Obra seleccionada"
+        href="/proyectos"
+        linkLabel="Ver portafolio"
+        description="Cada proyecto responde al terreno, a la luz natural y a quienes lo habitarán."
+      >
+        Obras que definen <em class="text-tertiary">nuestro estándar</em>
+      </SectionHeading>
+
+      <div class="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-3">
+        {
+          featuredProjects.map((p, i) => (
+            <a
+              href={`/proyectos/${p.id}`}
+              class={`group block ${i === 1 ? "md:mt-20" : ""}`}
+            >
+              <div class="relative aspect-4/5 overflow-hidden border border-quaternary bg-primary">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  class="h-full w-full object-cover grayscale-70 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                  loading="lazy"
+                />
+              </div>
+              <div class="mt-5 space-y-2">
+                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-quinary">
+                  {p.category}
+                </p>
+                <h3 class="flex items-start justify-between gap-4 font-display text-2xl font-light text-light transition-colors group-hover:text-tertiary">
+                  {p.title}
+                  <ArrowUpRight class="mt-1.5 h-5 w-5 shrink-0 opacity-0 transition-all duration-700  group-hover:opacity-100" />
+                </h3>
+                <p class="border-t border-quaternary/60 pt-3 text-xs text-light/55">
+                  {p.location} — {p.area}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="border-y border-quaternary/60 bg-primary py-24 sm:py-32">
+    <div
+      class="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:px-8"
+    >
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-32">
+          <SectionHeading
+            eyebrow="Servicios"
+            href="/servicios"
+            linkLabel="Todos los servicios"
+            class="md:flex-col md:items-start"
+          >
+            De la idea a <em class="text-tertiary">la obra terminada</em>
+          </SectionHeading>
+        </div>
+      </div>
+
+      <ul class="lg:col-span-8">
+        {
+          services.map((s, i) => (
+            <li class="border-t border-quaternary/60 last:border-b">
+              <div class="group grid grid-cols-[3rem_1fr_auto] items-start gap-4 py-8 sm:grid-cols-[4rem_1fr_auto] sm:py-10">
+                {/* <a
+                href="/servicios"
+                class="group grid grid-cols-[3rem_1fr_auto] items-start gap-4 py-8 sm:grid-cols-[4rem_1fr_auto] sm:py-10"
+              > */}
+
+                <span class="pt-2 font-mono text-xs text-tertiary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div class="space-y-3 transition-transform duration-300 group-hover:translate-x-2">
+                  <h3 class="font-display text-2xl font-light text-light transition-colors group-hover:text-tertiary sm:text-3xl">
+                    {s.title}
+                  </h3>
+                  <p class="max-w-lg text-sm leading-relaxed text-light/65">
+                    {s.description}
+                  </p>
+                </div>
+                {/* <ArrowRight class="mt-2 h-5 w-5 text-quaternary transition-all duration-300 group-hover:translate-x-1 group-hover:text-tertiary" /> */}
+                {/* </a> */}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Método"
+        href="/proceso"
+        linkLabel="Ver detalles de etapas"
+      >
+        Todo tu proyecto en <em class="text-tertiary">seis pasos</em>
+      </SectionHeading>
+
+      <ol class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        {
+          steps.map((step, i) => (
+            <li class="relative border-t border-quaternary pt-6">
+              <span
+                class="absolute -top-1.5 left-0 h-3 w-3 bg-tertiary"
+                aria-hidden="true"
+              />
+              <span class="font-mono text-xs text-quinary">
+                Etapa {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 class="mt-3 font-display text-xl font-light text-light text-center">
+                {step.title}
+              </h3>
+              {/* <p class="mt-3 text-sm leading-relaxed text-light/65">
+                {step.text}
+              </p> */}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  {
+    sortedPosts.length > 0 && (
+      <section class="border-t border-quaternary/60 bg-primary py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Nuestro Blog"
+            href="/blog"
+            linkLabel="Ver todo el blog"
+          >
+            Informate, inspírate y decora{" "}
+            <em class="text-tertiary">con nosotros</em>
+          </SectionHeading>
+
+          <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+            {sortedPosts.map((post) => (
+              <article class="group space-y-5">
+                <a
+                  href={`/blog/${post.id}`}
+                  class="block aspect-3/2 overflow-hidden border border-quaternary bg-secondary"
+                >
+                  <img
+                    src={post.data.image || ""}
+                    alt={post.data.title}
+                    class="h-full w-full object-cover grayscale-50 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                    loading="lazy"
+                  />
+                </a>
+                <div class="space-y-3">
+                  <p class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-quinary">
+                    <span class="text-tertiary">{post.data.category}</span>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString("es-MX", {
+                        year: "numeric",
+                        month: "short",
+                      })}
+                    </time>
+                  </p>
+                  <a href={`/blog/${post.id}`}>
+                    <h3 class="font-display text-xl font-light leading-snug text-light transition-colors group-hover:text-tertiary line-clamp-2">
+                      {post.data.title}
+                    </h3>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand />
+</MainLayout>

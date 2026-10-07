@@ -1,0 +1,86 @@
+---
+import MobileNav from "../islands/MobileNav";
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Proyectos", href: "/proyectos" },
+  { name: "Servicios", href: "/servicios" },
+  { name: "Proceso", href: "/proceso" },
+  { name: "Equipo", href: "/equipo" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contacto", href: "/contacto" },
+];
+---
+
+<header
+  class="w-full border-b border-quaternary/60 bg-secondary sticky top-0 z-50"
+>
+  <div
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
+  >
+    <!-- Logo-->
+    <a
+      href="/"
+      class="group transition-transform hover:scale-[1.02] duration-200"
+    >
+      <div id="logo-arquitecto-mx" class="flex flex-col">
+        <h1
+          class="font-black text-2xl text-light relative tracking-tight inline-block w-fit"
+        >
+          Arquitectos <span
+            class="absolute -bottom-2 -right-6 w-6 h-6 flex items-center justify-center text-[10px] text-dark font-extrabold bg-tertiary p-1 rounded-full shadow-md shadow-tertiary/30"
+            >MX</span
+          >
+        </h1>
+        <div class="w-32 h-0.5 bg-tertiary my-1"></div>
+        <h2
+          class="text-[11px] font-medium text-light/80 uppercase tracking-widest"
+        >
+          Innovación y Diseño
+        </h2>
+      </div>
+    </a>
+
+    <!-- Menú de navegación Desktop -->
+    <nav
+      class="hidden lg:flex items-center gap-5 xl:gap-8"
+      aria-label="Principal"
+    >
+      {
+        navLinks.map((link) => {
+          const isActive = currentPath === link.href;
+          return (
+            <a
+              href={link.href}
+              class={`group relative py-2 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-200 ${
+                isActive ? "text-tertiary" : "text-light/75 hover:text-light"
+              }`}
+            >
+              {link.name}
+              <span
+                class={`absolute inset-x-0 -bottom-0.5 h-px origin-left bg-tertiary transition-transform duration-300  ${
+                  isActive
+                    ? "scale-x-100 "
+                    : "scale-x-0 group-hover:scale-x-100"
+                }`}
+              />
+            </a>
+          );
+        })
+      }
+      <a
+        href="/contacto"
+        class="ml-2 border border-tertiary px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-tertiary transition-colors duration-300 hover:bg-tertiary hover:text-dark"
+      >
+        Cotizar
+      </a>
+    </nav>
+
+    <div class="lg:hidden flex items-center gap-4">
+      <!-- Menú interactivo para móviles -->
+      <MobileNav client:load />
+    </div>
+  </div>
+</header>

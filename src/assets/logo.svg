@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!--
+    ¿Qué cosas se pueden agregar aquí (src/assets/)?
+    - Vectores SVG como este logotipo personalizado de Islas Astro
+  -->
+  <defs>
+    <linearGradient id="islandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#9333ea" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="url(#islandGrad)" />
+  <circle cx="50" cy="50" r="22" fill="#0f172a" />
+  <circle cx="50" cy="50" r="14" fill="#38bdf8" opacity="0.8" />
+  <circle cx="68" cy="34" r="6" fill="#a855f7" />
+  <circle cx="32" cy="66" r="5" fill="#6366f1" />
+</svg>

@@ -1,0 +1,42 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import CtaBand from "../../components/ui/CtaBand.astro";
+import ProjectGallery from "../../components/islands/ProjectGallery";
+
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects").then((projects) =>
+  projects.map((p) => ({ ...p.data, html: p.rendered?.html })),
+);
+---
+
+<MainLayout
+  title="Portafolio de Proyectos Arquitectónicos | Arquitectos MX"
+  description="Explora nuestra galería de proyectos residenciales, comerciales, de interiorismo y restauración patrimonial en Oaxaca, Ciudad de México y costas mexicanas."
+  keywords={[
+    "proyectos de arquitectura",
+    "portafolio arquitectos",
+    "casas modernas oaxaca",
+    "arquitectura residencial",
+    "restauracion inah",
+    "interiorismo contemporaneo",
+  ]}
+>
+  <PageHeader
+    badge="Portafolio de obras"
+    title="Nuestros proyectos"
+    subtitle="Diseño de autor, integración con el entorno y excelencia constructiva."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+    bgImage="https://picsum.photos/seed/projects-hero-view/1200/960"
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <ProjectGallery client:load projects={projects} />
+  </section>
+
+  <CtaBand
+    title="¿Tienes un terreno o inmueble por desarrollar?"
+    description="Realizamos estudios de factibilidad técnica, normativa y de inversión sin costo preliminar."
+  />
+</MainLayout>

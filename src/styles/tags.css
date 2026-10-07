@@ -1,0 +1,37 @@
+/**
+ * ¿Qué cosas se pueden agregar aquí (src/styles/tags.css)?
+ * 
+ * Reglas de reset, comportamientos de etiquetas HTML nativas y tipografía:
+ * 1. Comportamiento del scroll suave (scroll-behavior: smooth).
+ * 2. Esquema de color por defecto (color-scheme: dark / light).
+ * 3. Familia tipográfica del sistema o fuentes personalizadas para <body> y encabezados.
+ * 4. Ajustes de accesibilidad (focus-visible) y estilos de selección de texto.
+ */
+
+/* Ajustes globales adicionales */
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-tertiary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

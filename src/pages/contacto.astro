@@ -1,0 +1,207 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import ContactForm from "../components/islands/ContactForm";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  MessageSquare,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-astro";
+---
+
+<MainLayout
+  title="Contacto & Ubicación | Arquitectos MX"
+  description="Ponte en contacto con el despacho de Arquitectos MX en Oaxaca de Juárez. Solicita cotización, agenda una visita técnica o consulta sobre tu próximo proyecto."
+  keywords={[
+    "contacto arquitectos mx",
+    "despacho de arquitectos oaxaca telefono",
+    "cotizar proyecto arquitectonico",
+    "oficina arquitectos oaxaca de juarez",
+    "arquitectos mexico ubicacion",
+  ]}
+>
+  <PageHeader
+    badge="Atención Personalizada"
+    title="Contacto & Ubicación"
+    subtitle="Inicia la conversación sobre tu próximo proyecto residencial o comercial. Estamos listos para acompañarte en cada etapa."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+    bgImage="https://picsum.photos/seed/architecture-studio-contact/1200/960"
+  />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+    <!-- Grid Principal: Formulario + Información de Contacto -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- Columna Izquierda: Información de Estudio & Vías Directas (5 cols) -->
+      <div class="lg:col-span-5 space-y-8">
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-tertiary uppercase tracking-wider"
+            >Estudio de Arquitectura</span
+          >
+          <h2 class="text-3xl font-black text-light leading-tight">
+            Canales Directos de Comunicación
+          </h2>
+          <p class="text-sm text-light/75 leading-relaxed">
+            Puedes comunicarte por teléfono, correo o enviarnos un mensaje por
+            WhatsApp. Atendemos proyectos en Oaxaca y en cualquier estado de la
+            República Mexicana.
+          </p>
+        </div>
+
+        <!-- Cards de Vías de Contacto -->
+        <div class="space-y-4">
+          <!-- Ubicación -->
+          <div
+            class="p-5 rounded-2xl bg-secondary/80 border border-primary/40 flex items-start gap-4"
+          >
+            <div
+              class="w-10 h-10 rounded-xl bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0 mt-0.5"
+            >
+              <MapPin class="w-5 h-5" />
+            </div>
+            <div class="space-y-0.5">
+              <span class="text-xs font-bold text-light/60 uppercase"
+                >Estudio Principal</span
+              >
+              <p class="text-sm font-bold text-light">
+                Oaxaca de Juárez, Oaxaca, México
+              </p>
+              <span class="text-xs text-light/70"
+                >Atención personalizada con previa cita</span
+              >
+            </div>
+          </div>
+
+          <!-- Teléfono -->
+          <div
+            class="p-5 rounded-2xl bg-secondary/80 border border-primary/40 flex items-start gap-4"
+          >
+            <div
+              class="w-10 h-10 rounded-xl bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0 mt-0.5"
+            >
+              <Phone class="w-5 h-5" />
+            </div>
+            <div class="space-y-0.5">
+              <span class="text-xs font-bold text-light/60 uppercase"
+                >Teléfono de Oficina</span
+              >
+              <p class="text-sm font-bold text-light">
+                <a
+                  href="tel:+525555555555"
+                  class="hover:text-tertiary transition-colors"
+                >
+                  +52 5555 5555 55
+                </a>
+              </p>
+              <span class="text-xs text-light/70"
+                >Línea directa para nuevos proyectos</span
+              >
+            </div>
+          </div>
+
+          <!-- Correo -->
+          <div
+            class="p-5 rounded-2xl bg-secondary/80 border border-primary/40 flex items-start gap-4"
+          >
+            <div
+              class="w-10 h-10 rounded-xl bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0 mt-0.5"
+            >
+              <Mail class="w-5 h-5" />
+            </div>
+            <div class="space-y-0.5">
+              <span class="text-xs font-bold text-light/60 uppercase"
+                >Correo Electrónico</span
+              >
+              <p class="text-sm font-bold text-light">
+                <a
+                  href="mailto:arquitectosMx@arquitectos.com"
+                  class="hover:text-tertiary transition-colors break-all"
+                >
+                  arquitectosMx@arquitectos.com
+                </a>
+              </p>
+              <span class="text-xs text-light/70"
+                >Envío de planos, briefs y solicitudes</span
+              >
+            </div>
+          </div>
+
+          <!-- Horario -->
+          <div
+            class="p-5 rounded-2xl bg-secondary/80 border border-primary/40 flex items-start gap-4"
+          >
+            <div
+              class="w-10 h-10 rounded-xl bg-tertiary/15 text-tertiary flex items-center justify-center shrink-0 mt-0.5"
+            >
+              <Clock class="w-5 h-5" />
+            </div>
+            <div class="space-y-0.5">
+              <span class="text-xs font-bold text-light/60 uppercase"
+                >Horarios de Atención</span
+              >
+              <p class="text-sm font-bold text-light">
+                Lunes a Viernes: 9:00 AM - 6:00 PM
+              </p>
+              <span class="text-xs text-light/70"
+                >Sábados: 10:00 AM - 2:00 PM</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Directo a WhatsApp -->
+        <a
+          href="https://wa.me/525555555555?text=Hola%20Arquitectos%20MX,%20me%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n%20para%20un%20proyecto."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full py-3.5 px-6 rounded-2xl bg-whatsapp hover:bg-whatsapp-dark text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 transition-all duration-300"
+        >
+          <MessageSquare class="w-4 h-4" />
+          <span>Iniciar Chat en WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Columna Derecha: Formulario Segmentado React Island (7 cols) -->
+      <div class="lg:col-span-7">
+        <ContactForm client:load />
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE MAPA EMBEBIDO COMPLETO -->
+    <section class="space-y-6 pt-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <span
+            class="text-xs font-bold text-tertiary uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <MapPin class="w-4 h-4" /> Nuestra Ubicación en Oaxaca
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-light mt-1">
+            Encuéntranos en Oaxaca de Juárez
+          </h3>
+        </div>
+        <p class="text-xs text-light/70">
+          Ubicación céntrica con estacionamiento y accesibilidad.
+        </p>
+      </div>
+
+      <div
+        class="w-full h-96 sm:h-112.5 rounded-3xl overflow-hidden border border-primary/50 shadow-2xl bg-dark/60"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d86300.89103823261!2d-96.8150360461638!3d17.07281999192479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c72249df26d9b1%3A0xac88a77657dffc3b!2sOaxaca%20de%20Ju%C3%A1rez%2C%20Oax.!5e0!3m2!1ses-419!2smx!4v1791318567159!5m2!1ses-419!2smx"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="Mapa de ubicación Arquitectos MX Oaxaca"
+          class="w-full h-full"></iframe>
+      </div>
+    </section>
+  </div>
+</MainLayout>

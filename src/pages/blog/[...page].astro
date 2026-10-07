@@ -1,0 +1,196 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import { getCollection } from "astro:content";
+import { Calendar, User, ArrowRight, BookOpen } from "lucide-astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = await getCollection("posts");
+  const orderPost = allPosts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+
+  return paginate(orderPost, { pageSize: 3 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const sortedPosts = page.data;
+---
+
+<MainLayout
+  title="Blog de Arquitectura, Diseño & Construcción | Arquitectos MX"
+  description="Artículos, guías y reflexiones sobre arquitectura contemporánea, diseño bioclimático, sustentabilidad y consejos para construir en México."
+  keywords={[
+    "blog de arquitectura",
+    "articulos arquitectura sustentable",
+    "consejos para construir casa",
+    "arquitectura oaxaca blog",
+    "diseño interior mexico",
+  ]}
+>
+  <PageHeader
+    badge="Publicaciones & Conocimiento"
+    title="Blog de Arquitectura"
+    subtitle="Perspectivas, casos de estudio y guías prácticas para tomar decisiones informadas en tus proyectos de diseño y construcción."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+    bgImage="https://picsum.photos/seed/blog-architecture-hero/1200/960"
+  />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <!-- Post Principal Destacado (si hay publicaciones) -->
+    {
+      sortedPosts.length > 0 && (
+        <div class="relative overflow-hidden bg-secondary border border-primary/50 hover:border-tertiary/60 transition-all duration-300 group grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-6 sm:p-8">
+          <div class="relative aspect-16/10 overflow-hidden bg-dark">
+            <img
+              src={
+                sortedPosts[0].data.image ||
+                "https://picsum.photos/seed/blog-featured-article/1000/600"
+              }
+              alt={sortedPosts[0].data.title}
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+            <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full text-xs font-bold bg-tertiary text-dark shadow-md">
+              Artículo Destacado
+            </span>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 text-xs text-light/60">
+              <span class="text-tertiary font-bold">
+                {sortedPosts[0].data.category || "Arquitectura"}
+              </span>
+              <span>•</span>
+              <span class="flex items-center gap-1">
+                <Calendar class="w-3.5 h-3.5" />
+                {sortedPosts[0].data.pubDate.toLocaleDateString("es-MX", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
+            <a href={`/blog/${sortedPosts[0].id}`}>
+              <h2 class="text-2xl sm:text-3xl font-black text-light group-hover:text-tertiary transition-colors leading-tight">
+                {sortedPosts[0].data.title}
+              </h2>
+            </a>
+            <p class="text-sm sm:text-base text-light/75 leading-relaxed">
+              {sortedPosts[0].data.description}
+            </p>
+            <div class="flex items-center justify-between pt-4 border-t border-primary/30">
+              <span class="text-xs text-light/60 flex items-center gap-1.5">
+                <User class="w-3.5 h-3.5 text-tertiary" />{" "}
+                {sortedPosts[0].data.author}
+              </span>
+              <a
+                href={`/blog/${sortedPosts[0].id}`}
+                class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-tertiary text-dark font-bold text-xs hover:bg-quinary transition-colors"
+              >
+                <span>Leer artículo</span>
+                <ArrowRight class="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Grid con el resto de artículos -->
+    <div class="space-y-6">
+      <h3 class="text-xl font-bold text-light flex items-center gap-2">
+        <BookOpen class="w-5 h-5 text-tertiary" />
+        Todas las Publicaciones
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          sortedPosts.map((post) => (
+            <article class="group bg-secondary/50  overflow-hidden border border-primary/40 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between">
+              <a
+                href={`/blog/${post.id}`}
+                class="aspect-16/10 overflow-hidden block relative bg-dark"
+              >
+                <img
+                  src={
+                    post.data.image ||
+                    "https://picsum.photos/seed/blog-article-card/800/500"
+                  }
+                  alt={post.data.title}
+                  class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-dark/80 backdrop-blur-md text-tertiary border border-tertiary/30">
+                  {post.data.category || "Arquitectura"}
+                </span>
+              </a>
+
+              <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2 text-xs text-light/60">
+                    <Calendar class="w-3.5 h-3.5 text-tertiary" />
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString("es-MX", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </time>
+                  </div>
+
+                  <a href={`/blog/${post.id}`}>
+                    <h4 class="text-lg font-bold text-light group-hover:text-tertiary transition-colors line-clamp-2">
+                      {post.data.title}
+                    </h4>
+                  </a>
+
+                  <p class="text-xs sm:text-sm text-light/70 line-clamp-3 leading-relaxed">
+                    {post.data.description}
+                  </p>
+                </div>
+
+                <div class="pt-3 border-t border-primary/30 flex items-center justify-between text-xs">
+                  <span class="text-light/60">{post.data.author}</span>
+                  <a
+                    href={`/blog/${post.id}`}
+                    class="text-tertiary font-bold flex items-center gap-1 hover:underline"
+                  >
+                    <span>Leer más</span>
+                    <ArrowRight class="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="flex items-center justify-center gap-4 mt-15">
+        <div>
+          {
+            page.url.prev && (
+              <a
+                href={page.url.prev}
+                class="bg-tertiary text-primary px-6 py-3 rounded font-bold hover:bg-primary hover:text-tertiary cursor-pointer transition-all duration-300 ease-in-out"
+              >
+                Anterior
+              </a>
+            )
+          }
+        </div>
+        <div>
+          {
+            page.url.next && (
+              <a
+                href={page.url.next}
+                class="bg-tertiary text-primary px-6 py-3 rounded font-bold hover:bg-primary hover:text-tertiary cursor-pointer transition-all duration-300 ease-in-out"
+              >
+                Siguiente
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#17211c" />
+      <stop offset="100%" stop-color="#080c0a" />
+    </linearGradient>
+    <linearGradient id="terraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f09a67" />
+      <stop offset="100%" stop-color="#d9824f" />
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo estructurado con bordes redondeados y marco sutil -->
+  <rect width="64" height="64" rx="14" fill="url(#bgGrad)" />
+  <rect x="1" y="1" width="62" height="62" rx="13" stroke="#34443b" stroke-width="1.5" stroke-opacity="0.8" />
+
+  <!-- Retícula de plano / Blueprint arquitectónico -->
+  <path d="M12 22H52M12 34H52M12 46H52M22 12V52M34 12V52M46 12V52" stroke="#34443b" stroke-width="0.8" stroke-opacity="0.45" stroke-dasharray="2 2" />
+
+  <!-- Estructura volumétrica / Letra 'A' arquitectónica -->
+  <!-- Columna izquierda en cal -->
+  <path d="M32 9 L15 48 H23.5 L32 27 L40.5 48 H49 L32 9 Z" fill="#eee9de" />
+
+  <!-- Viga / Losa transversal en terracota -->
+  <polygon points="19,37 32,31 45,37 32,43" fill="url(#terraGrad)" />
+
+  <!-- Remate cenital / Punto focal -->
+  <circle cx="32" cy="9" r="3.2" fill="url(#terraGrad)" />
+
+  <!-- Badge distintivo 'MX' en esquina inferior derecha -->
+  <rect x="39" y="44" width="18" height="9" rx="2.5" fill="url(#terraGrad)" />
+  <text x="48" y="50.8" font-family="'JetBrains Mono', 'Segoe UI', sans-serif" font-size="6" font-weight="900" fill="#080c0a" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.5">MX</text>
+</svg>

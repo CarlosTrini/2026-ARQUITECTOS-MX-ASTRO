@@ -1,0 +1,60 @@
+---
+/**
+ * Banda de llamada a la acción compartida entre páginas
+ * (reemplaza los banners repetidos en cada vista).
+ */
+import Button from "./Button.astro";
+import { Phone } from "lucide-astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "¿Tienes un terreno o una idea por desarrollar?",
+  description = "Agenda una asesoría inicial en nuestro estudio de Oaxaca o de forma virtual para todo el país.",
+} = Astro.props;
+---
+
+<section
+  class="relative overflow-hidden border-t border-quaternary/60 bg-primary"
+>
+  <div
+    class="absolute inset-0 bg-blueprint opacity-60 [mask:linear-gradient(to_right,transparent,black)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="relative mx-auto grid max-w-7xl items-end gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-12 lg:px-8"
+  >
+    <div class="space-y-5 lg:col-span-7">
+      <p
+        class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-quinary"
+      >
+        <span class="h-px w-10 bg-tertiary"></span>
+        Iniciemos
+      </p>
+      <h2
+        class="font-display text-3xl font-light leading-[1.1] tracking-tight text-light sm:text-4xl lg:text-6xl"
+      >
+        {title}
+      </h2>
+      <p class="max-w-xl text-sm leading-relaxed text-light/70 sm:text-base">
+        {description}
+      </p>
+    </div>
+    <div
+      class="flex flex-col items-start gap-4 sm:flex-row sm:items-center lg:col-span-5 lg:justify-end"
+    >
+      <Button href="/contacto" size="lg" arrow>Solicitar cotización</Button>
+      <a
+        href="tel:+525555555555"
+        class="inline-flex items-center gap-3 font-mono text-xs tracking-wider text-light/80 transition-colors hover:text-tertiary"
+      >
+        <Phone class="w-4 h-4 text-tertiary" />
+        +52 5555 5555 55
+      </a>
+    </div>
+  </div>
+</section>

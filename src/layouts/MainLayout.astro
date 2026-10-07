@@ -1,0 +1,58 @@
+---
+/**
+ * Layout principal de Arquitectos MX:
+ * - View Transitions (ClientRouter) para transiciones suaves entre páginas.
+ * - Header sticky con logo '#logo-arquitecto-mx' y navegación responsive.
+ * - Footer corporativo con mapa embebido de Oaxaca y datos de contacto.
+ * - Botón de WhatsApp flotante interactivo.
+ * - Integración de SEO y OpenGraph completa.
+ */
+import "../styles/global.css";
+import Header from "../components/ui/Header.astro";
+import Footer from "../components/ui/Footer.astro";
+import FloatingWhatsApp from "../components/ui/FloatingWhatsApp.astro";
+import SEO from "../components/ui/SEO.astro";
+import { ClientRouter } from "astro:transitions";
+import type { SEOProps } from "../config/seo";
+
+interface Props extends SEOProps {
+  showFooter?: boolean;
+  showWhatsApp?: boolean;
+}
+
+const { showFooter = true, showWhatsApp = true, ...seoProps } = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang={seoProps.locale || "es-MX"}
+  class="h-full bg-dark text-light antialiased scroll-smooth"
+>
+  <head>
+    <!-- Componente SEO universal configurable: Meta tags, OG, Twitter, JSON-LD Schemas -->
+    <SEO {...seoProps} />
+    <!-- View Transitions para transiciones y animaciones suaves entre páginas -->
+    <ClientRouter />
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <slot name="head" />
+  </head>
+  <body
+    class="min-h-full flex flex-col bg-secondary text-light selection:bg-tertiary selection:text-dark"
+  >
+    <Header />
+
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+
+    {showFooter && <Footer />}
+
+    {showWhatsApp && <FloatingWhatsApp />}
+  </body>
+</html>

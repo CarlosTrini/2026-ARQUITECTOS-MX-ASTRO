@@ -1,0 +1,80 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+
+const sections = [
+  {
+    title: "Finalidad del tratamiento de datos",
+    body: "Los datos personales, escrituras de propiedad, levantamientos topográficos y documentos proporcionados por el cliente se utilizan únicamente para:",
+    list: [
+      "Elaboración de presupuestos, anteproyectos y proyectos ejecutivos.",
+      "Gestión de licencias ante dependencias municipales, estatales o federales (incluido el INAH).",
+      "Visitas técnicas, supervisión de obra y contratos de servicios profesionales.",
+      "Facturación electrónica y cumplimiento de obligaciones fiscales.",
+    ],
+  },
+  {
+    title: "Derechos de autor y propiedad intelectual",
+    body: "Todos los diseños, renders, modelos 3D y planos ejecutivos elaborados por Arquitectos MX están protegidos por la Ley Federal del Derecho de Autor. Queda prohibida su reproducción, modificación o construcción no autorizada sin consentimiento por escrito del despacho.",
+  },
+];
+---
+
+<MainLayout
+  title="Políticas de Privacidad y Términos Legales | Arquitectos MX"
+  description="Aviso de privacidad y términos y condiciones de servicio del despacho Arquitectos MX en Oaxaca de Juárez, México."
+>
+  <PageHeader
+    badge="Aspectos legales"
+    title="Políticas de privacidad"
+    subtitle="Nuestro compromiso con la protección de tus datos personales, planos e información técnica."
+    breadcrumbs={[{ label: "Inicio", href: "/" }]}
+  />
+
+  <div class="mx-auto max-w-3xl space-y-14 px-4 py-20 text-sm leading-relaxed text-light/75 sm:px-6 sm:text-base lg:px-8">
+    <p class="border-l border-tertiary pl-6">
+      En cumplimiento con la <strong class="font-semibold text-light">Ley Federal de Protección de Datos Personales en Posesión de los Particulares</strong>,
+      <strong class="font-semibold text-light">Arquitectos MX</strong>, con domicilio en Oaxaca de Juárez, Oaxaca, México,
+      informa que la información personal y técnica recabada será tratada con estricta confidencialidad.
+    </p>
+
+    {
+      sections.map((section, i) => (
+        <section class="space-y-4">
+          <h2 class="flex items-baseline gap-4 font-display text-2xl font-light text-light sm:text-3xl">
+            <span class="font-mono text-xs text-tertiary">{String(i + 1).padStart(2, "0")}</span>
+            {section.title}
+          </h2>
+          <p>{section.body}</p>
+          {section.list && (
+            <ul class="space-y-3">
+              {section.list.map((item) => (
+                <li class="flex items-start gap-4">
+                  <span class="mt-3 h-px w-5 shrink-0 bg-tertiary" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ))
+    }
+
+    <section id="terminos" class="scroll-mt-28 space-y-4">
+      <h2 class="flex items-baseline gap-4 font-display text-2xl font-light text-light sm:text-3xl">
+        <span class="font-mono text-xs text-tertiary">03</span>
+        Derechos ARCO
+      </h2>
+      <p>
+        Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, cancelación y oposición enviando una
+        solicitud a
+        <a href="mailto:arquitectosMx@arquitectos.com" class="text-tertiary underline underline-offset-4">arquitectosMx@arquitectos.com</a>.
+      </p>
+    </section>
+
+    <p class="border-t border-quaternary/60 pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-light/45">
+      Última actualización: octubre de 2026. Arquitectos MX puede modificar este aviso para adaptarlo a cambios
+      legislativos.
+    </p>
+  </div>
+</MainLayout>

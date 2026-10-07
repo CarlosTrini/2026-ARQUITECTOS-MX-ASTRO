@@ -1,0 +1,55 @@
+---
+/**
+ * Botón / enlace de acción. Esquinas rectas, tipografía técnica en mayúsculas
+ * y flecha opcional que se desplaza al pasar el cursor.
+ */
+import { ArrowRight } from "lucide-astro";
+
+interface Props {
+  variant?: "primary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+  arrow?: boolean;
+  class?: string;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  arrow = false,
+  class: className = "",
+  ...rest
+} = Astro.props;
+
+const baseStyles =
+  "group inline-flex items-center justify-center font-mono font-medium uppercase tracking-[0.18em] transition-colors duration-300 cursor-pointer";
+
+const sizeStyles = {
+  sm: "px-4 py-2.5 text-[10px] gap-2",
+  md: "px-6 py-3.5 text-xs gap-3",
+  lg: "px-8 py-4 text-xs gap-3",
+};
+
+const variantStyles = {
+  primary: "bg-tertiary text-dark hover:bg-light",
+  outline: "border border-light/30 text-light hover:border-tertiary hover:text-tertiary",
+  ghost: "text-light/80 hover:text-tertiary",
+};
+
+const classes = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...rest}>
+      <slot />
+      {arrow && <ArrowRight class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />}
+    </a>
+  ) : (
+    <button class={classes} {...rest}>
+      <slot />
+      {arrow && <ArrowRight class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />}
+    </button>
+  )
+}
